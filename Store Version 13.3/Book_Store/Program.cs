@@ -54,9 +54,9 @@ builder.Services.AddSession(options => {
 });
 
 //Facebook authentication
-builder.Services.AddAuthentication().AddFacebook(options => {
-    options.AppId = "856098079235732";
-    options.AppSecret = "b3aa912c71381a65a937e08173a22d9e";
+builder.Services.AddAuthentication().AddFacebook(option => {
+    option.AppId = "243150582050185";
+    option.AppSecret = "6dc7b6c4bebc970d44be23a08af87496";
 });
 
 var app = builder.Build();
