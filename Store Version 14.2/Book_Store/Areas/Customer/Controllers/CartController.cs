@@ -194,7 +194,7 @@ namespace Book_Store.Areas.Customer.Controllers
 				.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
 			_unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
 			_unitOfWork.Save();
-
+			HttpContext.Session.Clear();
 			return View(id);
         }
 

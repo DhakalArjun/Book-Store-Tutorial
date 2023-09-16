@@ -192,7 +192,7 @@ namespace Book_Store.Areas.Customer.Controllers
 
 			_unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
 			_unitOfWork.Save();
-
+			HttpContext.Session.Clear();
 			return View(id);
         }
 
