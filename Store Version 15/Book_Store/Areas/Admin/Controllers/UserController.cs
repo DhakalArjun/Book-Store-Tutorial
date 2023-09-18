@@ -74,19 +74,18 @@ namespace Book_Store.Areas.Admin.Controllers
             //New role from dropdown list
             string newRole = roleManagementVM.ApplicationUser.Role;
 
-            if (oldRole != newRole)
-            {
-                if (oldRole == SD.Role_Company)
-                {  //if oldRole == "Company" != newRole => this user will no more company user
+            if (oldRole != newRole ||  applicationUser.CompanyId != roleManagementVM.ApplicationUser.CompanyId)
+            {//if user's role has be change or only companyId has been changed
+                if (oldRole == SD.Role_Company && newRole != SD.Role_Company)
+                {  //this user was company user but is no more company user
                     applicationUser.CompanyId = null;
                 }
                 if (newRole == SD.Role_Company)
-                {  //if newRole == "Company"  => this user is now company user
+                {  //if newRole == "Company"  => this user is now company user or companyId may have changed
                     applicationUser.CompanyId = roleManagementVM.ApplicationUser.CompanyId;
-                }
+                }                
                 _db.SaveChanges();
-
-                // _userManager.UpdateRoleAsync(applicationUser, newRole).GetAwaiter.GetResult();
+                
                 _userManager.RemoveFromRoleAsync(applicationUser, oldRole).GetAwaiter().GetResult();
                 _userManager.AddToRoleAsync(applicationUser, newRole).GetAwaiter().GetResult();
                 //for above we don't need to saveChange, it will automatically save the changes.
